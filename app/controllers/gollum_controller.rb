@@ -41,7 +41,7 @@ class GollumController < ApplicationController
   private
 
   def project_repository_path
-    (Rails.root + "gollum" + "#{@project.identifier}.wiki.git").to_s
+    return (Pathname.new(Redmine::Configuration["gollum"]["repository_root"] || (Rails.root + "gollum")) + "#{@project.identifier}.wiki.git").to_s
   end
 
   def show_page(name)
