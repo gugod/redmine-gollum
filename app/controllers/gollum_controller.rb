@@ -65,6 +65,6 @@ class GollumController < ApplicationController
       Grit::Repo.init_bare(project_repository_path)
     end
 
-    @wiki = Gollum::Wiki.new(project_repository_path)
+    @wiki = Gollum::Wiki.new(project_repository_path, :base_path => gollum_index_path(:project_id => @project.identifier))
   end
 end
