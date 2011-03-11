@@ -1,3 +1,4 @@
+require "grit"
 require "gollum"
 
 class GollumController < ApplicationController
@@ -6,30 +7,64 @@ class GollumController < ApplicationController
   before_filter :find_project, :authorize
 
   def index
-    show_page_or_file("Home")
+    redirect_to :action => :show, :id => "Home"
+  end
+
+  def show
+    @editable = true
+
+    show_page(params[:id])
+  end
+
+  def edit
+    @name = params[:id]
+    @page = @wiki.page(@name)
+    @content = @page ? @page.raw_data : ""
+  end
+
+  def update
+    @name = params[:id]
+    @page = @wiki.page(@name)
+    @user = User.current
+
+    commit = { :message => params[:page][:message], :name => @user.name, :email => @user.mail }
+
+    if @page
+      @wiki.update_page(@page, @page.name, @page.format, params[:page][:raw_data], commit)
+    else
+      @wiki.write_page(@name, :markdown, params[:page][:raw_data], commit)
+    end
+
+    redirect_to :action => :show, :id => @name
   end
 
   private
 
-  def show_page_or_file(name)
-    wiki = Gollum::Wiki.new("/tmp/fnord.wiki.git", {})
-    if page = wiki.page(name)
+  def project_repository_path
+    (Rails.root + "gollum" + "#{@project.identifier}.wiki.git").to_s
+  end
+
+  def show_page(name)
+    @name = name
+
+    if page = @wiki.page(name)
       @page = page
-      @name = name
       @content = page.formatted_data
-    elsif file = wiki.file(name)
-      content_type file.mime_type
-      file.raw_data
-    else
-      @name = name
     end
   end
 
   def find_project
-    if params[:project_id].present?
-      @project = Project.find(params[:project_id])
-    elsif params[:id].present?
-    elsif User.current.admin?
+    unless params[:project_id].present?
+      render :status => 404
+      return
     end
+
+    @project = Project.find(params[:project_id])
+
+    unless File.directory? project_repository_path
+      Grit::Repo.init_bare(project_repository_path)
+    end
+
+    @wiki = Gollum::Wiki.new(project_repository_path)
   end
 end

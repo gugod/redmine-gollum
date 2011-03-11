@@ -1,0 +1,9 @@
+<div class="contextual">
+<% if @editable %>
+<%= link_to_if_authorized(l(:button_edit), {:action => 'edit', :id => @name}, :class => 'icon icon-edit', :accesskey => accesskey(:edit)) %>
+<% end %>
+</div>
+
+<div>
+<%= @content %>
+</div> 

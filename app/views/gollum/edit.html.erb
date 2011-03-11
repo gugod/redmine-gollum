@@ -1,0 +1,6 @@
+<% form_for :page, :url => gollum_path(:id => @name), :html => { :method => "put" } do |f| -%>
+<%= f.text_area :raw_data %>
+<%= f.submit %>
+<% end %>
+
+
