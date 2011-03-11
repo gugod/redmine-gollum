@@ -17,9 +17,11 @@ is the repository name of the project `redgolf`.
 
 Be caution:
 
+- IT DOES NOT IMPORT YOUR CURRENT WIKI CONTENT
 - The code is pretty alpha quality now, backward-incompatible changes
   are likely to be introduced in the future.
-- It does not import your current wiki content
 - It only support markdown (at the moment)
+- It requires your redmine process (passenger / mongrel... whatever) to be able to write your git repositories
+
 
 
