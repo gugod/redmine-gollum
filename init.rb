@@ -8,6 +8,11 @@ Dispatcher.to_prepare :redmine_model_dependencies do
   require_dependency 'user'
 end
 
+Dispatcher.to_prepare :redmine_gollum do
+  require_dependency 'projects_helper'
+  ProjectsHelper.send(:include, GollumProjectsHelperPatch) unless ProjectsHelper.included_modules.include?(GollumProjectsHelperPatch)
+end
+
 Redmine::Plugin.register :redmine_gollum do
   name 'Redmine Gollumn plugin'
   author 'Kang-min Liu <gugod@gugod.org>'
@@ -23,6 +28,8 @@ Redmine::Plugin.register :redmine_gollum do
     permission :add_gollum_pages,    :gollum => [:new, :create]
     permission :edit_gollum_pages,   :gollum => [:edit, :update]
     permission :delete_gollum_pages, :gollum => [:destroy]
+
+    permission :manage_gollum_wiki, :gollum => [:index]
   end
 
   menu :project_menu, :gollum, { :controller => :gollum, :action => :index }, :caption => 'Gollum', :before => :wiki, :param => :project_id
