@@ -1,3 +1,5 @@
+require 'grit'
+require 'gollum'
 require 'redmine'
 require 'dispatcher'
 

@@ -1,6 +1,3 @@
-require "grit"
-require "gollum"
-
 class GollumController < ApplicationController
   unloadable
 
