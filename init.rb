@@ -6,11 +6,15 @@ require 'dispatcher'
 Dispatcher.to_prepare :redmine_model_dependencies do
   require_dependency 'project'
   require_dependency 'user'
+  require_dependency 'projects_helper'
+  require_dependency 'gollum_projects_helper_patch'
+  require_dependency 'projects_controller'
+  require_dependency 'gollum_projects_controller_patch'
 end
 
 Dispatcher.to_prepare :redmine_gollum do
-  require_dependency 'projects_helper'
   ProjectsHelper.send(:include, GollumProjectsHelperPatch) unless ProjectsHelper.included_modules.include?(GollumProjectsHelperPatch)
+  ProjectsController.send(:include, GollumProjectsControllerPatch) unless ProjectsController.included_modules.include?(GollumProjectsControllerPatch)
 end
 
 Redmine::Plugin.register :redmine_gollum do
