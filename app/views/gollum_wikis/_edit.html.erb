@@ -1,0 +1,11 @@
+<% form_for @gollum_wiki, :url => { :controller => 'gollum_wikis', :action=> 'update', :project_id => @project } do |f| %>
+
+<div class="box tabular">
+  <p>
+    <%= label(:gollum_wiki, :git_path) %>
+    <%= f.text_field :git_path %>
+  </p>
+</div>
+
+  <p><%= f.submit %></p>
+<% end %>
