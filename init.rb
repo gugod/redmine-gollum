@@ -27,7 +27,3 @@ Redmine::Plugin.register :redmine_gollum do
 
   menu :project_menu, :gollum, { :controller => :gollum, :action => :index }, :caption => 'Gollum', :before => :wiki, :param => :project_id
 end
-
-Redmine::Activity.map do |activity|
-  activity.register :gollum
-end
