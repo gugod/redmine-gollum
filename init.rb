@@ -25,7 +25,7 @@ Redmine::Plugin.register :redmine_gollum_wiki do
     permission :delete_gollum_wiki, :gollum => [:destroy]
   end
 
-  menu :project_menu, :gollum_wiki, { :controller => :gollum, :action => :index }, :caption => 'Wiki', :after => 'Issues', :param => :project_id
+  menu :project_menu, :gollum, { :controller => :gollum, :action => :index }, :caption => 'Gollum Wiki', :before => :wiki, :param => :project_id
 end
 
 Redmine::Activity.map do |activity|
