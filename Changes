@@ -1,0 +1,4 @@
+0.0.2:
+- The project module name is changed to "Gollum" but not "Gollum Wiki".
+  Users will have to change theri role and permission settings
+- Fix the "Activity" tab error
