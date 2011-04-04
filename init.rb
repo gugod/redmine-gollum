@@ -28,6 +28,11 @@ Redmine::Plugin.register :redmine_gollum do
 
   requires_redmine :version_or_higher => '1.1.0'
 
+  settings :default => {
+                       :gollum_base_path => Pathname.new(Rails.root + "gollum")
+                       },
+           :partial => 'shared/settings'
+
   project_module :gollum do
     permission :view_gollum_pages,   :gollum => [:index, :show]
     permission :add_gollum_pages,    :gollum => [:new, :create]
