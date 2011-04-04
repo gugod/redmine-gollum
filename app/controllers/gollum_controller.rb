@@ -43,9 +43,8 @@ class GollumController < ApplicationController
       git_path = gollum_wiki.git_path
     end
     return git_path ||
-      (Pathname.new(
-      # Redmine::Configuration["gollum"]["repository_root"] ||
-      Rails.root + "gollum") + "#{@project.identifier}.wiki.git").to_s
+           (Setting.plugin_redmine_gollum[:gollum_base_path].to_s +
+            "#{@project.identifier}.wiki.git".to_s)
   end
 
   def show_page(name)
