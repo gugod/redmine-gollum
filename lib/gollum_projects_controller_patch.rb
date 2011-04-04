@@ -13,7 +13,7 @@ module GollumProjectsControllerPatch
       @gollum_wiki =
          GollumWiki.first(:conditions => ["project_id = ?", @project.id]) ||
          GollumWiki.new( :project_id => @project.id,
-                         :git_path => "some/default/path")
+                         :git_path => Setting.plugin_redmine_gollum[:gollum_base_path].to_s + "#{@project.identifier}.wiki.git".to_s)
     end
   end
 end
