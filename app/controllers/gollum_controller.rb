@@ -44,7 +44,7 @@ class GollumController < ApplicationController
     end
     return git_path ||
       (Pathname.new(
-      Redmine::Configuration["gollum"]["repository_root"] ||
+      # Redmine::Configuration["gollum"]["repository_root"] ||
       Rails.root + "gollum") + "#{@project.identifier}.wiki.git").to_s
   end
 
