@@ -15,6 +15,7 @@ end
 Dispatcher.to_prepare :redmine_gollum do
   ProjectsHelper.send(:include, GollumProjectsHelperPatch) unless ProjectsHelper.included_modules.include?(GollumProjectsHelperPatch)
   ProjectsController.send(:include, GollumProjectsControllerPatch) unless ProjectsController.included_modules.include?(GollumProjectsControllerPatch)
+  Project.send(:include, GollumProjectModelPatch) unless Project.included_modules.include?(GollumProjectModelPatch)
 end
 
 Redmine::Plugin.register :redmine_gollum do

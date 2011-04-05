@@ -9,11 +9,7 @@ module GollumProjectsControllerPatch
   module InstanceMethods
     def settings_with_gollum_settings
       settings_without_gollum_settings
-      # if a record not found, set some defaults
-      @gollum_wiki =
-         GollumWiki.first(:conditions => ["project_id = ?", @project.id]) ||
-         GollumWiki.new( :project_id => @project.id,
-                         :git_path => Setting.plugin_redmine_gollum[:gollum_base_path].to_s + "#{@project.identifier}.wiki.git".to_s)
+      @gollum_wiki = @project.gollum_wiki
     end
   end
 end
