@@ -5,19 +5,14 @@ This is a plugin that let redmine project wiki be a gollum wiki.
 
 Gollum is a wiki system that powers GitHub Wikis (https://github.com/github/gollum). Gollum Wiki plugin is a plugin that puts that power into Redmine.
 
-You need to set the value of `gollum.repository_root` in your `config/configration.yml` file.
+A gollum wiki is a git repository that contains simple text files.
 
-For example, if you are using gitosis, this might be a good working setting:
+You can set a base path for you wikis if you want all wikis to be in the specific folder.
 
-    production:
-      gollum:
-        repository_root: /home/git/repositories
+You can also go to project settings and set a custom wiki git path.
 
-The project wiki repository will be named after the project identifier
-(not name) plus `.wiki.git` suffix.  For example, `redgolf.wiki.git`
-is the repository name of the project `redgolf`.
+The wiki will be created when you go to a plugin tab. Old wikis will not be deleted or moved.
 
-You can also go to project settings and set a custom git path for your wiki. The corresponding directory will be created when you go to a plugin tab.
 
 Be caution:
 
@@ -26,5 +21,5 @@ Be caution:
 - It requires your redmine process (passenger / mongrel... whatever) to be able to write your git repositories
 - Depending on your git server setup, you still need to configure the access control for the newly create wiki repositories
 - IT DOES NOT IMPORT YOUR CURRENT WIKI CONTENT
-
+- If you change the wiki path, it will NOT be moved
 
