@@ -38,14 +38,7 @@ class GollumController < ApplicationController
   private
 
   def project_repository_path
-    gollum_wiki = GollumWiki.first(:conditions => ["project_id = ?", @project.id])
-    unless gollum_wiki.nil?
-      git_path = gollum_wiki.git_path
-    end
-    return git_path ||
-      (Pathname.new(
-      Redmine::Configuration["gollum"]["repository_root"] ||
-      Rails.root + "gollum") + "#{@project.identifier}.wiki.git").to_s
+    return @project.gollum_wiki.git_path
   end
 
   def show_page(name)
