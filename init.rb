@@ -23,7 +23,7 @@ Redmine::Plugin.register :redmine_gollum do
   author 'Kang-min Liu <gugod@gugod.org>'
   description 'A gollum plugin for redmine'
   version '0.0.2' +
-          '-development'
+          '-stable'
   url 'https://github.com/gugod/redmine-gollumn/'
   author_url 'http://gugod.org'
 
