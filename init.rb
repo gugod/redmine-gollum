@@ -20,7 +20,7 @@ Dispatcher.to_prepare :redmine_gollum do
 end
 
 Redmine::Plugin.register :redmine_gollum do
-  name 'Redmine Gollumn plugin'
+  name 'Redmine Gollum plugin'
   author 'Kang-min Liu <gugod@gugod.org>'
   description 'A gollum plugin for redmine'
   version '0.0.3' +
