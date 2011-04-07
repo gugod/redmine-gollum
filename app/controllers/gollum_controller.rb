@@ -38,7 +38,7 @@ class GollumController < ApplicationController
   private
 
   def project_repository_path
-    return (Pathname.new(Redmine::Configuration["gollum"]["repository_root"] || (Rails.root + "gollum")) + "#{@project.identifier}.wiki.git").to_s
+    return @project.gollum_wiki.git_path
   end
 
   def show_page(name)
@@ -58,10 +58,12 @@ class GollumController < ApplicationController
 
     @project = Project.find(params[:project_id])
 
-    unless File.directory? project_repository_path
-      Grit::Repo.init_bare(project_repository_path)
+    git_path = project_repository_path
+
+    unless File.directory? git_path
+      Grit::Repo.init_bare(git_path)
     end
 
-    @wiki = Gollum::Wiki.new(project_repository_path, :base_path => gollum_index_path(:project_id => @project.identifier))
+    @wiki = Gollum::Wiki.new(git_path, :base_path => gollum_index_path(:project_id => @project.identifier))
   end
 end
