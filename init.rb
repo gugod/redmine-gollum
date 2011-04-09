@@ -25,7 +25,7 @@ Redmine::Plugin.register :redmine_gollum do
   description 'A gollum plugin for redmine'
   version '0.0.3' +
           '-development'
-  url 'https://github.com/gugod/redmine-gollumn/'
+  url 'https://github.com/gugod/redmine-gollum/'
   author_url 'http://gugod.org'
 
   requires_redmine :version_or_higher => '1.1.0'
