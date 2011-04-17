@@ -13,18 +13,23 @@ Dispatcher.to_prepare :redmine_model_dependencies do
 end
 
 Dispatcher.to_prepare :redmine_gollum do
-  ProjectsHelper.send(:include, GollumProjectsHelperPatch) unless ProjectsHelper.included_modules.include?(GollumProjectsHelperPatch)
-  ProjectsController.send(:include, GollumProjectsControllerPatch) unless ProjectsController.included_modules.include?(GollumProjectsControllerPatch)
+  # project model should be patched before projects controller
   Project.send(:include, GollumProjectModelPatch) unless Project.included_modules.include?(GollumProjectModelPatch)
+  ProjectsController.send(:include, GollumProjectsControllerPatch) unless ProjectsController.included_modules.include?(GollumProjectsControllerPatch)
+  ProjectsHelper.send(:include, GollumProjectsHelperPatch) unless ProjectsHelper.included_modules.include?(GollumProjectsHelperPatch)
 end
 
 Redmine::Plugin.register :redmine_gollum do
-  name 'Redmine Gollumn plugin'
+  name 'Redmine Gollum plugin'
   author 'Kang-min Liu <gugod@gugod.org>'
   description 'A gollum plugin for redmine'
-  version '0.0.2' +
-          '-stable'
-  url 'https://github.com/gugod/redmine-gollumn/'
+
+  # use git to get version name
+  require 'grit'
+  repo = Grit::Repo.new("#{RAILS_ROOT}/vendor/plugins/redmine-gollum/.git")
+  version repo.recent_tag_name('HEAD', :tags=>true)
+
+  url 'https://github.com/gugod/redmine-gollum/'
   author_url 'http://gugod.org'
 
   requires_redmine :version_or_higher => '1.1.0'

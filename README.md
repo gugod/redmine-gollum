@@ -22,4 +22,4 @@ Be caution:
 - Depending on your git server setup, you still need to configure the access control for the newly create wiki repositories
 - IT DOES NOT IMPORT YOUR CURRENT WIKI CONTENT
 - If you change the wiki path, it will NOT be moved
-
+- You should have a plugin .git repository in vendor/plugins/redmine-gollum/.git
