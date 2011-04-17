@@ -23,8 +23,12 @@ Redmine::Plugin.register :redmine_gollum do
   name 'Redmine Gollum plugin'
   author 'Kang-min Liu <gugod@gugod.org>'
   description 'A gollum plugin for redmine'
-  version '0.0.3' +
-          '-development'
+
+  # use git to get version name
+  require 'grit'
+  repo = Grit::Repo.new("#{RAILS_ROOT}/vendor/plugins/redmine-gollum/.git")
+  version repo.recent_tag_name('HEAD', :tags=>true)
+
   url 'https://github.com/gugod/redmine-gollum/'
   author_url 'http://gugod.org'
 
