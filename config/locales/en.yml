@@ -2,3 +2,7 @@ en:
   Gollum: 'Gollum'
   gollum_wiki_updated: 'Gollum settings saved'
   gollum_wiki_update_error: 'Gollum settings are not saved'
+  field_git_path: 'Git repository path'
+  field_markup_language: 'Markup language'
+  field_gollum_directory: 'Wiki pages directory'
+
