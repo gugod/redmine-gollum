@@ -5,6 +5,14 @@
     <%= label(:gollum_wiki, :git_path) %>
     <%= f.text_field :git_path %>
   </p>
+  <p>
+    <%= label(:gollum_wiki, :markup_language) %>
+    <%= select_tag(:markup_language, options_for_select(Gollum::Page::FORMAT_NAMES.keys)) %></p>
+  </p>
+  <p>
+    <%= label(:gollum_wiki, :gollum_directory) %>
+    <%= f.text_field :directory %>
+  </p>
 </div>
 
   <p><%= f.submit %></p>
