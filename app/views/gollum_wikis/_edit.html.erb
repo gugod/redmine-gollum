@@ -10,7 +10,7 @@
     <%= select_tag(:markup_language, options_for_select(Gollum::Page::FORMAT_NAMES.keys)) %></p>
   </p>
   <p>
-    <%= label(:gollum_wiki, :gollum_directory) %>
+    <%= label(:gollum_wiki, :page_files_directory) %>
     <%= f.text_field :directory %>
   </p>
 </div>

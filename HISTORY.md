@@ -1,3 +1,8 @@
+0.0.4:
+- Add a default format to settings.
+- Add a page files directory for new created wikis. (requires gollum version => 1.2.0)
+- Fix a bug when creating new wiki.
+
 0.0.3:
 - Let the content style match the style of builtin Wiki
 
