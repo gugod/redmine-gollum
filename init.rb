@@ -1,5 +1,5 @@
 require 'grit'
-require 'gollum'
+require 'gollum' # min version 1.2.0
 require 'redmine'
 require 'dispatcher'
 
