@@ -29,7 +29,7 @@ class GollumController < ApplicationController
     if @page
       @wiki.update_page(@page, @page.name, @page.format, params[:page][:raw_data], commit)
     else
-      @wiki.write_page(@name, :markdown, params[:page][:raw_data], commit)
+      @wiki.write_page(@name, @project.gollum_wiki.markup_language.to_sym, params[:page][:raw_data], commit)
     end
 
     redirect_to :action => :show, :id => @name
@@ -64,6 +64,9 @@ class GollumController < ApplicationController
       Grit::Repo.init_bare(git_path)
     end
 
-    @wiki = Gollum::Wiki.new(git_path, :base_path => gollum_index_path(:project_id => @project.identifier))
+    wiki_dir = @project.gollum_wiki.directory
+
+    @wiki = Gollum::Wiki.new(git_path, :base_path => gollum_index_path(:project_id => @project.identifier), :page_file_dir => wiki_dir)
+
   end
 end

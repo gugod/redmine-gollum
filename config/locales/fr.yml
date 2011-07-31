@@ -1,0 +1,8 @@
+fr:
+  Gollum: 'Gollum'
+  gollum_wiki_updated: 'Paramètres Gollum enregistrés'
+  gollum_wiki_update_error: "Les paramètres Gollum n'ont pas été sauvés"
+  field_git_path: 'Chemin vers le référentiel Git'
+  field_markup_language: 'Markup language'
+  field_page_files_directory: 'Répertoire de stockage des pages wiki'
+

@@ -8,10 +8,12 @@ class GollumWikisController < ApplicationController
     redirect_to :action => :show
   end
 
+  def create
+    update
+  end
+
   def update
-    gollum_wiki =
-      GollumWiki.first(:conditions => ["project_id = ?", @project.id]) ||
-      GollumWiki.new( :project_id => @project.id )
+    gollum_wiki = @project.gollum_wiki
     gollum_wiki.attributes = params[:gollum_wiki]
     if gollum_wiki.save
       flash[:notice] = t(:gollum_wiki_updated)
