@@ -1,3 +1,5 @@
+require_dependency 'user'
+
 class GollumController < ApplicationController
   unloadable
 

@@ -3,11 +3,8 @@ require 'gollum' # min version 1.2.0
 require 'redmine'
 
 Rails.configuration.to_prepare do
-  require_dependency 'project'
-  require_dependency 'user'
-  require_dependency 'projects_helper'
+  require_dependency 'gollum_project_model_patch'
   require_dependency 'gollum_projects_helper_patch'
-  require_dependency 'projects_controller'
   require_dependency 'gollum_projects_controller_patch'
 
   # project model should be patched before projects controller
