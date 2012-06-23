@@ -69,7 +69,10 @@ class GollumController < ApplicationController
       wiki_dir = nil
     end
 
-    @wiki = Gollum::Wiki.new(git_path, :base_path => gollum_index_path(:project_id => @project.identifier), :page_file_dir => wiki_dir )
+    gollum_base_path = project_gollum_index_path
+    @wiki = Gollum::Wiki.new(git_path,
+                            :base_path => gollum_base_path,
+                            :page_file_dir => wiki_dir)
 
   end
 end
