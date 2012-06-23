@@ -23,7 +23,7 @@ Redmine::Plugin.register :redmine_gollum do
 
   # use git to get version name
   require 'grit'
-  repo = Grit::Repo.new("#{Rails.root}/plugins/redmine-gollum/.git")
+  repo = Grit::Repo.new("#{Rails.root}/plugins/redmine_gollum/.git")
   version repo.recent_tag_name('HEAD', :tags=>true)
 
   url 'https://github.com/gugod/redmine-gollum/'
