@@ -48,7 +48,7 @@ class GollumController < ApplicationController
 
     if page = @wiki.page(name)
       @page = page
-      @content = page.formatted_data
+      @content = page.formatted_data.html_safe
     end
   end
 
