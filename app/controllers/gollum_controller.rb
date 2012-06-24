@@ -3,7 +3,7 @@ require_dependency 'user'
 class GollumController < ApplicationController
   unloadable
 
-  before_filter :find_project, :authorize
+  before_filter :find_project, :find_wiki, :authorize
 
   def index
     redirect_to :action => :show, :id => "Home"
@@ -59,7 +59,9 @@ class GollumController < ApplicationController
     end
 
     @project = Project.find(params[:project_id])
+  end
 
+  def find_wiki
     git_path = project_repository_path
 
     unless File.directory? git_path
