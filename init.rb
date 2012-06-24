@@ -1,8 +1,8 @@
-require 'grit'
-require 'gollum' # min version 1.2.0
 require 'redmine'
 
 Rails.configuration.to_prepare do
+  require 'grit'
+  require 'gollum'
   require_dependency 'gollum_project_model_patch'
   require_dependency 'gollum_projects_helper_patch'
   require_dependency 'gollum_projects_controller_patch'
@@ -19,7 +19,6 @@ Redmine::Plugin.register :redmine_gollum do
   description 'A gollum plugin for redmine'
 
   # use git to get version name
-  require 'grit'
   repo = Grit::Repo.new("#{Rails.root}/plugins/redmine_gollum/.git")
   version repo.recent_tag_name('HEAD', :tags=>true)
 
