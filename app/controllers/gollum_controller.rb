@@ -18,7 +18,7 @@ class GollumController < ApplicationController
   def edit
     @name = params[:id]
     @page = @wiki.page(@name)
-    @content = @page ? @page.raw_data : ""
+    @content = @page ? @page.text_data : ""
   end
 
   def update
