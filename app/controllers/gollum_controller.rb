@@ -44,11 +44,10 @@ class GollumController < ApplicationController
   end
 
   def show_page(name)
-    @name = name
-
+    @page_name = name
     if page = @wiki.page(name)
-      @page = page
-      @content = page.formatted_data.html_safe
+      @page_title = page.title
+      @page_content = page.formatted_data.html_safe
     end
   end
 
