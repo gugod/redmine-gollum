@@ -44,10 +44,12 @@ class GollumController < ApplicationController
   end
 
   def show_page(name)
-    @page_name = name
     if page = @wiki.page(name)
+      @page_name = page.name
       @page_title = page.title
       @page_content = page.formatted_data.html_safe
+    else
+      redirect_to :action => :edit, :id => name
     end
   end
 
