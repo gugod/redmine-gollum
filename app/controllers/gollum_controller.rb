@@ -1,7 +1,9 @@
+require_dependency 'user'
+
 class GollumController < ApplicationController
   unloadable
 
-  before_filter :find_project, :authorize
+  before_filter :find_project, :find_wiki, :authorize
 
   def index
     redirect_to :action => :show, :id => "Home"
@@ -16,7 +18,7 @@ class GollumController < ApplicationController
   def edit
     @name = params[:id]
     @page = @wiki.page(@name)
-    @content = @page ? @page.raw_data : ""
+    @content = @page ? @page.text_data : ""
   end
 
   def update
@@ -42,11 +44,12 @@ class GollumController < ApplicationController
   end
 
   def show_page(name)
-    @name = name
-
     if page = @wiki.page(name)
-      @page = page
-      @content = page.formatted_data
+      @page_name = page.name
+      @page_title = page.title
+      @page_content = page.formatted_data.html_safe
+    else
+      redirect_to :action => :edit, :id => name
     end
   end
 
@@ -57,7 +60,9 @@ class GollumController < ApplicationController
     end
 
     @project = Project.find(params[:project_id])
+  end
 
+  def find_wiki
     git_path = project_repository_path
 
     unless File.directory? git_path
@@ -65,8 +70,14 @@ class GollumController < ApplicationController
     end
 
     wiki_dir = @project.gollum_wiki.directory
+    if wiki_dir.empty?
+      wiki_dir = nil
+    end
 
-    @wiki = Gollum::Wiki.new(git_path, :base_path => gollum_index_path(:project_id => @project.identifier), :page_file_dir => wiki_dir)
+    gollum_base_path = project_gollum_index_path
+    @wiki = Gollum::Wiki.new(git_path,
+                            :base_path => gollum_base_path,
+                            :page_file_dir => wiki_dir)
 
   end
 end

@@ -1,3 +1,5 @@
+require_dependency 'projects_helper'
+
 module GollumProjectsHelperPatch
   def self.included(base) # :nodoc:
     base.send(:include, InstanceMethods)
