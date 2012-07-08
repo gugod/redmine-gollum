@@ -1,9 +1,14 @@
 <div class="contextual">
 <% if @editable %>
-<%= link_to_if_authorized(l(:button_edit), {:action => 'edit', :id => @name}, :class => 'icon icon-edit', :accesskey => accesskey(:edit)) %>
+  <%= link_to_if_authorized(
+        l(:button_edit),
+        {:action => 'edit', :id => @page_name},
+        :class => 'icon icon-edit',
+        :accesskey => accesskey(:edit))
+  %>
 <% end %>
 </div>
-
-<div class="wiki">
-<%= @content %>
+<div class="wiki wiki-page">
+<h1><%= @page_title %></h1>
+<%= @page_content %>
 </div> 
