@@ -1,3 +1,8 @@
+0.0.5:
+
+- Support ruby 1.9 and Redmine 2.x only
+- User can see the page title
+
 0.0.4:
 
 - Add a default format to settings.
