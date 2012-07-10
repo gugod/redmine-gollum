@@ -1,6 +1,6 @@
 require_dependency 'user'
 
-class GollumController < ApplicationController
+class GollumPagesController < ApplicationController
   unloadable
 
   before_filter :find_project, :find_wiki, :authorize
@@ -74,7 +74,7 @@ class GollumController < ApplicationController
       wiki_dir = nil
     end
 
-    gollum_base_path = project_gollum_index_path
+    gollum_base_path = project_gollum_pages_path
     @wiki = Gollum::Wiki.new(git_path,
                             :base_path => gollum_base_path,
                             :page_file_dir => wiki_dir)
