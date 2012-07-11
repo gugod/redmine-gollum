@@ -1,6 +1,9 @@
 require_dependency 'project'
 
-module GollumProjectModelPatch
+module RedmineGollum
+  module Patches
+    module Project
+
   def self.included(base) # :nodoc:
     base.send(:include, InstanceMethods)
   end
@@ -13,5 +16,7 @@ module GollumProjectModelPatch
                             :git_path => Setting.plugin_redmine_gollum[:gollum_base_path].to_s + "/#{self.identifier}.wiki.git".to_s)
     end
   end
-end
 
+    end
+  end
+end

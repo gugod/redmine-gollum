@@ -3,14 +3,19 @@ require 'redmine'
 Rails.configuration.to_prepare do
   require 'grit'
   require 'gollum'
-  require_dependency 'gollum_project_model_patch'
-  require_dependency 'gollum_projects_helper_patch'
-  require_dependency 'gollum_projects_controller_patch'
+  require_dependency 'redmine_gollum_patches/gollum_project_model_patch'
+  require_dependency 'redmine_gollum_patches/gollum_projects_helper_patch'
+  require_dependency 'redmine_gollum_patches/gollum_projects_controller_patch'
 
   # project model should be patched before projects controller
-  Project.send(:include, GollumProjectModelPatch) unless Project.included_modules.include?(GollumProjectModelPatch)
-  ProjectsController.send(:include, GollumProjectsControllerPatch) unless ProjectsController.included_modules.include?(GollumProjectsControllerPatch)
-  ProjectsHelper.send(:include, GollumProjectsHelperPatch) unless ProjectsHelper.included_modules.include?(GollumProjectsHelperPatch)
+  patches = [ [Project, RedmineGollum::Patches::Project],
+              [ProjectsController, RedmineGollum::Patches::ProjectsController],
+              [ProjectsHelper, RedmineGollum::Patches::ProjectsHelper] ]
+  patches.each{|patch|
+    unless patch[0].included_modules.include?(patch[1])
+      patch[0].send(:include, patch[1])
+    end
+  }
 end
 
 Redmine::Plugin.register :redmine_gollum do
