@@ -1,6 +1,9 @@
 require_dependency 'projects_controller'
 
-module GollumProjectsControllerPatch
+module RedmineGollum
+  module Patches
+    module ProjectsController
+
   def self.included(base) # :nodoc:
     base.send(:include, InstanceMethods)
     base.class_eval do
@@ -14,5 +17,7 @@ module GollumProjectsControllerPatch
       @gollum_wiki = @project.gollum_wiki
     end
   end
-end
 
+    end
+  end
+end
