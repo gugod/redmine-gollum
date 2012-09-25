@@ -17,14 +17,14 @@ class GollumPagesController < ApplicationController
   end
 
   def edit
-    @name = params[:id]
-    @page = @wiki.page(@name)
+    @page_name = params[:id]
+    @page = @wiki.page(@page_name)
     @content = @page ? @page.text_data : ""
   end
 
   def update
-    @name = params[:id]
-    @page = @wiki.page(@name)
+    @page_name = params[:id]
+    @page = @wiki.page(@page_name)
     @user = User.current
 
     commit = { :message => params[:page][:message], :name => @user.name, :email => @user.mail }
@@ -32,10 +32,10 @@ class GollumPagesController < ApplicationController
     if @page
       @wiki.update_page(@page, @page.name, @page.format, params[:page][:raw_data], commit)
     else
-      @wiki.write_page(@name, @project.gollum_wiki.markup_language.to_sym, params[:page][:raw_data], commit)
+      @wiki.write_page(@page_name, @project.gollum_wiki.markup_language.to_sym, params[:page][:raw_data], commit)
     end
 
-    redirect_to :action => :show, :id => @name
+    redirect_to :action => :show, :id => @page_name
   end
 
   private

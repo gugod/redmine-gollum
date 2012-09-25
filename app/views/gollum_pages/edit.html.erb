@@ -1,4 +1,5 @@
-<%= form_for :page, :url => project_gollum_page_path(:id => @name), :html => { :method => "put" } do |f| -%>
+<h2><%= @page_name %></h2>
+<%= form_for :page, :url => project_gollum_page_path(:id => @page_name), :html => { :method => "put" } do |f| -%>
 <%= f.text_area :raw_data, :class => "wiki-edit", :cols => 100, :row => 25 %>
 <p><%= f.submit(l(:button_save)) %></p>
 <% end %>
