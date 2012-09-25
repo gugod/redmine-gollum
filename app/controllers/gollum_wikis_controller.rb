@@ -1,3 +1,4 @@
+# A controller used to view and edit project-wide wiki settings.
 class GollumWikisController < ApplicationController
   menu_item :settings
   unloadable

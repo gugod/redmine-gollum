@@ -1,5 +1,6 @@
 require_dependency 'user'
 
+# A controller used to view and edit wiki pages.
 class GollumPagesController < ApplicationController
   unloadable
 
