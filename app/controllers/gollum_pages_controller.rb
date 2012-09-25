@@ -17,25 +17,28 @@ class GollumPagesController < ApplicationController
   end
 
   def edit
-    @name = params[:id]
-    @page = @wiki.page(@name)
+    @page_name = params[:id]
+    @page = @wiki.page(@page_name)
     @content = @page ? @page.text_data : ""
+    @page_format = @page ? @page.format : @project.gollum_wiki.markup_language.to_sym
   end
 
   def update
-    @name = params[:id]
-    @page = @wiki.page(@name)
+    @page_name = params[:id]
+    @page_format = params[:page][:format].to_sym
+    @page = @wiki.page(@page_name)
     @user = User.current
 
     commit = { :message => params[:page][:message], :name => @user.name, :email => @user.mail }
 
+
     if @page
-      @wiki.update_page(@page, @page.name, @page.format, params[:page][:raw_data], commit)
+      @wiki.update_page(@page, @page.name, @page_format, params[:page][:raw_data], commit)
     else
-      @wiki.write_page(@name, @project.gollum_wiki.markup_language.to_sym, params[:page][:raw_data], commit)
+      @wiki.write_page(@page_name, @page_format, params[:page][:raw_data], commit)
     end
 
-    redirect_to :action => :show, :id => @name
+    redirect_to :action => :show, :id => @page_name
   end
 
   private
@@ -65,6 +68,7 @@ class GollumPagesController < ApplicationController
 
   def find_wiki
     git_path = project_repository_path
+    # TODO git_path should never be empty
 
     unless File.directory? git_path
       Grit::Repo.init_bare(git_path)
