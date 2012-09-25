@@ -1,5 +1,10 @@
 <h2><%= @page_name %></h2>
 <%= form_for :page, :url => project_gollum_page_path(:id => @page_name), :html => { :method => "put" } do |f| -%>
+  <p>
+    <%= label(:gollum_wiki, :markup_language) %>
+    <%= select(:page, :format, options_for_select(Gollum::Page::FORMAT_NAMES.keys, @page_format), {:disabled => false}) %></p>
+  </p>
+
 <%= f.text_area :raw_data, :class => "wiki-edit", :cols => 100, :row => 25 %>
 <p><%= f.submit(l(:button_save)) %></p>
 <% end %>
