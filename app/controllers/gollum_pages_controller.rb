@@ -4,10 +4,15 @@ require_dependency 'user'
 class GollumPagesController < ApplicationController
   unloadable
 
-  before_filter :find_project, :find_wiki, :authorize
+  before_filter :find_project, :find_wiki
+  before_filter :authorize, :except => [ :preview ]
 
   def index
     redirect_to :action => :show, :id => "Home"
+  end
+
+  def preview
+    get_html(params[:raw_data], params[:page_format])
   end
 
   def show
@@ -84,5 +89,14 @@ class GollumPagesController < ApplicationController
                             :base_path => gollum_base_path,
                             :page_file_dir => wiki_dir)
 
+  end
+
+  def get_html(data, format)
+    if data.nil? || format.nil?
+      html = ''
+    else
+      html = @wiki.preview_page('temp', data, format).formatted_data.html_safe
+    end
+    render :inline => html
   end
 end

@@ -6,5 +6,14 @@
   </p>
 
 <%= f.text_area :raw_data, :class => "wiki-edit", :cols => 100, :row => 25 %>
-<p><%= f.submit(l(:button_save)) %></p>
+<p>
+  <%= f.submit(l(:button_save)) %>
+  <% #preview
+    previewUrl = preview_project_gollum_pages_path(:id => @page_name)
+    previewScript = "javascript:RedmineGollum.preview('preview', 'page_raw_data', 'page_format', '#{previewUrl}')"
+  %>
+  <%= link_to(l(:label_preview), previewScript) %>
+</p>
 <% end %>
+<div id="preview"></div>
+<%= javascript_include_tag "preview.js", :plugin => 'redmine_gollum' %>
